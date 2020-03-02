@@ -14,7 +14,6 @@ url="http://slepc.upv.es"
 license=('BSD')
 depends=('petsc>=3.12' 'petsc<3.13')
 makedepends=('python')
-install=slepc.install
 source=(http://slepc.upv.es/download/distrib/${pkgname}-${pkgver/_/-}.tar.gz)
 sha256sums=('a586ce572a928ed87f04961850992a9b8e741677397cbaa3fb028323eddf4598')
 
@@ -33,6 +32,13 @@ build() {
 
 	python ./configure --prefix=${pkgdir}${_install_dir}
 	make
+}
+
+check() {
+   _build_dir=${srcdir}/${pkgname}-${pkgver/_/-}
+   cd ${_build_dir}
+   source /etc/profile.d/petsc.sh		# gets PETSC_DIR
+   make SLEPC_DIR=${_build_dir} PETSC_DIR=$PETSC_DIR test
 }
 
 
