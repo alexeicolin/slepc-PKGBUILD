@@ -14,9 +14,17 @@ url="http://slepc.upv.es"
 license=('BSD')
 depends=('petsc>=3.12' 'petsc<3.13')
 makedepends=('python')
-source=(http://slepc.upv.es/download/distrib/${pkgname}-${pkgver/_/-}.tar.gz)
-sha256sums=('a586ce572a928ed87f04961850992a9b8e741677397cbaa3fb028323eddf4598')
+source=(http://slepc.upv.es/download/distrib/${pkgname}-${pkgver/_/-}.tar.gz
+        awk5.patch)
+sha256sums=('a586ce572a928ed87f04961850992a9b8e741677397cbaa3fb028323eddf4598'
+            '86cc598266c7d1a20afee7e6b1299e735b173d9adeca548463591fd14598612f')
 
+prepare() {
+   _build_dir=${srcdir}/${pkgname}-${pkgver/_/-}
+   cd ${_build_dir}
+
+   patch -p1 < ../awk5.patch
+}
 
 build() {
 	# get SLEPC_DIR

@@ -1,0 +1,17 @@
+--- a/gmakefile	2020-01-13 07:02:45.000000000 -0500
++++ b/gmakefile	2020-03-02 13:48:03.288073221 -0500
+@@ -13,10 +13,10 @@
+ # $(call SL_LINKER_FUNCTION,libfoo,abiversion,libversion)
+ SL_LINKER_FUNCTION ?= -shared -Wl,-soname,$(call SONAME_FUNCTION,$(notdir $(1)),$(2))
+ 
+-SLEPC_VERSION_MAJOR := $(shell awk '/\#define SLEPC_VERSION_MAJOR/{print $$3;}' ./include/slepcversion.h)
+-SLEPC_VERSION_MINOR := $(shell awk '/\#define SLEPC_VERSION_MINOR/{print $$3;}' ./include/slepcversion.h)
+-SLEPC_VERSION_SUBMINOR := $(shell awk '/\#define SLEPC_VERSION_SUBMINOR/{print $$3;}' ./include/slepcversion.h)
+-SLEPC_VERSION_RELEASE := $(shell awk '/\#define SLEPC_VERSION_RELEASE/{print $$3;}' ./include/slepcversion.h)
++SLEPC_VERSION_MAJOR := $(shell awk '/#define SLEPC_VERSION_MAJOR/{print $$3;}' ./include/slepcversion.h)
++SLEPC_VERSION_MINOR := $(shell awk '/#define SLEPC_VERSION_MINOR/{print $$3;}' ./include/slepcversion.h)
++SLEPC_VERSION_SUBMINOR := $(shell awk '/#define SLEPC_VERSION_SUBMINOR/{print $$3;}' ./include/slepcversion.h)
++SLEPC_VERSION_RELEASE := $(shell awk '/#define SLEPC_VERSION_RELEASE/{print $$3;}' ./include/slepcversion.h)
+ 
+ libslepc_abi_version := $(SLEPC_VERSION_MAJOR).$(if $(filter $(SLEPC_VERSION_RELEASE), 0 -2 -3 -4 -5),0)$(SLEPC_VERSION_MINOR)
+ libslepc_lib_version := $(libslepc_abi_version).$(SLEPC_VERSION_SUBMINOR)
