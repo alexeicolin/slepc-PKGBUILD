@@ -18,8 +18,6 @@ install=slepc.install
 source=(http://slepc.upv.es/download/distrib/${pkgname}-${pkgver/_/-}.tar.gz)
 sha256sums=('a586ce572a928ed87f04961850992a9b8e741677397cbaa3fb028323eddf4598')
 
-export MAKEFLAGS="-j1"
-
 
 build() {
 	# get SLEPC_DIR
